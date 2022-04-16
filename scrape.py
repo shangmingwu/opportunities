@@ -2,8 +2,8 @@ import csv
 import re
 
 # format so far (subject to change)
-# | 0            |  1                |  2           |   3    |
-# | PROGRAM NAME |  OPPORTUNITY TYPE |  INSTITUTION |   LINK |
+# | 0            |  1                |  2           |   3    |  4    |  5    |  6         | 7
+# | PROGRAM NAME |  OPPORTUNITY TYPE |  INSTITUTION |   LINK |  CITY |  DATE |  LOGO NAME | DESCRIPTION
 
 with open('opportunities.csv') as opps:
     # read the opportunities spreadsheet file
@@ -18,8 +18,12 @@ with open('opportunities.csv') as opps:
             slug_name = re.sub(r'[^\w]', '', row[0])
             with open(slug_name+'.mdx','w') as output:
                 output.write('---\n')
-                output.write('name: "'+row[0]+'"\n')
-                output.write('type: "'+row[1]+'"\n')
-                output.write('institution: "'+row[2]+'"\n')
-                output.write('link: "'+row[3]+'"\n')
-                output.write('---')
+                output.write('postingName: "'+row[0]+'"\n')
+                output.write('tags: ["'+row[1]+'"]\n')
+                output.write('orgName: "'+row[2]+'"\n')
+                output.write('linkTo: "'+row[3]+'"\n')
+                output.write('city: "'+row[4]+'"\n')
+                output.write('postedDate: '+row[5]+'\n')
+                output.write('orgImages: /resource/opportunities/'+row[6]+'\n')
+                output.write('---\n')
+                output.write(row[7])
